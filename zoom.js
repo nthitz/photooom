@@ -38,6 +38,7 @@ var rotationScale = d3.scale.linear().range([0, rotationAmount]);
 var mouse = [0,0]
 var fromMouse = false;
 
+var saving = false;
 
 function mousemove(e) {
   mouse[0] = e.clientX;
@@ -113,4 +114,27 @@ function animate() {
   if(globalTicker > frames) {
     globalTicker = 0;
   }
+  if(saving) {
+    saveFrame();
+    if(globalPct >= 1) {
+      d3.select('canvas').remove();
+      d3.select('body,html').style('overflow', 'auto')
+      return true;
+    }
+    return false;
+  }
+}
+
+function saveFrame() {
+  d3.select('body').append('a')
+    .attr('title', globalTicker)
+    .attr('download', globalTicker)
+    .attr('href', canvas.toDataURL('image/jpeg', 1.0))
+    .text(globalTicker)
+    .style({
+      color: 'white',
+      "font-size": "20px",
+      "margin": "1em",
+      "display": "block"
+    })
 }
