@@ -16,7 +16,6 @@ function imageLoaded() {
 var photoW = 1440;
 var photoH = 900;
 var aspectRatio = photoW / photoH;
-console.log(aspectRatio);
 var width = window.innerWidth;
 var height = window.innerHeight;
 var easing = d3.ease('cubic-in-out')
@@ -49,18 +48,14 @@ function resize() {
   height = window.innerHeight;
   var curAspect = width / height;
   if(curAspect > aspectRatio) {
-    console.log('cur bigger')
     //fit to height
-    console.log(height)
     width = aspectRatio * height;
   } else if(curAspect < aspectRatio) {
-    console.log('cur smaller')
     //fit to width
     height = 1 / aspectRatio  * width;
   }
   canvas.width = width;
   canvas.height = height;
-  console.log(width / height)
 
   // set scales
 
