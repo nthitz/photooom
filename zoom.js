@@ -23,27 +23,16 @@ var easing = d3.ease('cubic-in-out')
 var frames = 50;
 var globalTicker = 0;
 
-var zoomedInWidth = 529;
-var zoomedInHeight = 350
-// var zoomedInHeight = 1 / aspectRatio* zoomedInWidth;
-
-var translateX = 417;
-var translateY = 155;
-
 var rotationAmountDegrees = 6.4;
 var rotationAmount = Math.PI * rotationAmountDegrees / 180;
 
-var zoomInAmountX = width / zoomedInWidth;
-var zoomInAmountY = height / zoomedInHeight;
 
-var translateXAmount = zoomInAmountX * translateX;
-var translateYAmount = zoomInAmountY * translateY;
 
-var translateXScale = d3.scale.linear().range([0,-translateXAmount]);
-var translateYScale = d3.scale.linear().range([0,-translateYAmount]);
+var translateXScale = d3.scale.linear()
+var translateYScale = d3.scale.linear()
 
-var scaleXScale = d3.scale.linear().range([1,zoomInAmountX]);
-var scaleYScale = d3.scale.linear().range([1,zoomInAmountY]);
+var scaleXScale = d3.scale.linear()
+var scaleYScale = d3.scale.linear()
 
 var rotationScale = d3.scale.linear().range([0, rotationAmount]);
 
@@ -72,6 +61,29 @@ function resize() {
   canvas.width = width;
   canvas.height = height;
   console.log(width / height)
+
+  // set scales
+
+  var zoomedInWidth = width * 0.456;
+  var zoomedInHeight = height* 0.46;
+  // var zoomedInHeight = 1 / aspectRatio* zoomedInWidth;
+
+  var translateX = width * 0.36;
+  var translateY = height * 0.21
+
+  var zoomInAmountX = width / zoomedInWidth;
+  var zoomInAmountY = height / zoomedInHeight;
+
+  var translateXAmount = zoomInAmountX * translateX;
+  var translateYAmount = zoomInAmountY * translateY;
+
+  translateXScale.range([0, -translateXAmount])
+  translateYScale.range([0, -translateYAmount])
+
+  scaleXScale.range([1, zoomInAmountX])
+  scaleYScale.range([1, zoomInAmountY])
+
+
 }
 function animate() {
   ctxt.clearRect(0,0, width, height);
